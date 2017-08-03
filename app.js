@@ -25,30 +25,30 @@ app.use(async(ctx, next) => {
   //   ctx.body = 'Hello World';
   //   //   console.log(ctx)
   //   ctx.response.body = "sasaafs"
-//   console.log(ctx.request.href)
-    //   ctx.redirect('/1', '/index.html');
-    
-  var data=await new Promise((resolve,reject)=>fs.readFile('./index.html', 'utf-8', (err, fd) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        console.error('myfile does not exist');
-        return;
+  //   console.log(ctx.request.href)
+  //   ctx.redirect('/1', '/index.html');
+  if (ctx.request.url='/') {
+    var data = await new Promise((resolve, reject) => fs.readFile('./index.html', 'utf-8', (err, fd) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          console.error('myfile does not exist');
+          return;
+        }
+
+        throw err;
       }
+      resolve(fd)
 
-      throw err;
-    }
-    resolve(fd)
 
-// data=fd
-    // ctx.response.body = fd
+
+    }));
+  }
+ctx.res.statusCode=200
+//这里不设置statuscode就会显示404notfound 虽然页面会正常显示
+  ctx.res.end(data)
     // console.log(ctx)
-    //  ctx.res.end(fd,'binary')
-    
-  }));
-     ctx.res.end(data)
-    // console.log(ctx)
-     
- 
+
+
 });
 
 app.use(async ctx => {
